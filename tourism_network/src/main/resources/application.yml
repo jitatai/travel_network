@@ -1,0 +1,27 @@
+#DB Configuration:
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/tourismnetwork?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: abc
+  #JPA Configuration:
+  jpa:
+    database: MySQL
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+
+  #Redis
+  redis:
+    host: www.hujiatai.cn
+    port: 6379
+
+logging:
+  level:
+    com:
+      jt: debug
+server:
+  port: 80
