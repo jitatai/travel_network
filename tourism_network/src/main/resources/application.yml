@@ -18,10 +18,15 @@ spring:
   redis:
     host: www.hujiatai.cn
     port: 6379
+  #mvc
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
 
 logging:
   level:
     com:
-      jt: debug
+      jt: error
 server:
   port: 80
