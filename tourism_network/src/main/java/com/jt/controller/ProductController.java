@@ -25,4 +25,20 @@ public class ProductController {
     public String productList(){
         return "product-list";
     }
+    @RequestMapping("toadd")
+    public String toadd(){
+        return "product-add";
+    }
+
+
+    @RequestMapping("save")
+    public String save(Product product){
+        service.save(product);
+        return productList();
+    }
+
+    @RequestMapping("/tomain")
+    public String toMain(){
+        return "main";
+    }
 }

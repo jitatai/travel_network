@@ -3,6 +3,7 @@ package com.jt.service;
 import com.jt.dao.ProductDao;
 import com.jt.domain.Product;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -14,5 +15,9 @@ public class ProductService {
 
     public List<Product> findAll(){
         return productDao.findAll();
+    }
+
+    public void save(Product product) {
+        productDao.save(product);
     }
 }

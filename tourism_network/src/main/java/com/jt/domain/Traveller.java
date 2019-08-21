@@ -1,6 +1,20 @@
 package com.jt.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
 //旅客
+@Entity
 public class Traveller {
+
+    @Id
+    @GeneratedValue(generator = "paymentableGenerator")
+    @GenericGenerator(name = "paymentableGenerator", strategy = "uuid")
+    @Column(name = "id")
     private String id;
     private String name;
     private String sex;
@@ -10,6 +24,18 @@ public class Traveller {
     private String credentialsNum;
     private Integer travellerType;
     private String travellerTypeStr;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "travellers")
+    private Set<Orders> orders = new HashSet<>();
+
+    public void setOrders(Set<Orders> orders) {
+        this.orders = orders;
+    }
+
+    public Set<Orders> getOrders() {
+        return orders;
+    }
 
     public String getId() {
         return id;

@@ -1,11 +1,16 @@
 package com.jt.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jt.utils.DateUtils;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * 产品信息
@@ -35,6 +40,18 @@ public class Product {
     @Column(name = "productstatus")
     private Integer productStatus; // 状态 0 关闭 1 开启
     private String productStatusStr;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY)
+    private Set<Orders> orders = new HashSet<>();
+
+    public void setOrders(Set<Orders> orders) {
+        this.orders = orders;
+    }
+
+    public Set<Orders> getOrders() {
+        return orders;
+    }
 
     public String getId() {
         return id ;

@@ -2,12 +2,23 @@ package com.jt.domain;
 
 
 import com.jt.utils.DateUtils;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.context.annotation.Lazy;
 
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //订单
+@Entity
+@Table(name = "orders")
 public class Orders {
+    @Id
+    @GeneratedValue(generator = "paymentableGenerator")
+    @GenericGenerator(name = "paymentableGenerator", strategy = "uuid")
+    @Column(name = "id")
     private String id;
     private String orderNum;
     private Date orderTime;
@@ -15,12 +26,40 @@ public class Orders {
     private int orderStatus;
     private String orderStatusStr;
     private int peopleCount;
-    private Product product;
-    private List<Traveller> travellers;
+
+    @ManyToOne(targetEntity = Member.class,cascade = CascadeType.ALL)
+    @JoinColumn(name="member_id",referencedColumnName = "id")
     private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "orders_traveller",
+        joinColumns = @JoinColumn(name = "orders_id",referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "traveller_id",referencedColumnName = "id"))
+    private Set<Traveller> travellers = new HashSet<>();
+
     private Integer payType;
     private String payTypeStr;
     private String orderDesc;
+
+    public void setTravellers(Set<Traveller> travellers) {
+        this.travellers = travellers;
+    }
+
+    public Set<Traveller> getTravellers() {
+        return travellers;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public String getOrderStatusStr() {
         //订单状态(0 未支付 1 已支付)
@@ -87,22 +126,6 @@ public class Orders {
         this.peopleCount = peopleCount;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public List<Traveller> getTravellers() {
-        return travellers;
-    }
-
-    public void setTravellers(List<Traveller> travellers) {
-        this.travellers = travellers;
-    }
-
     public Member getMember() {
         return member;
     }
@@ -141,5 +164,23 @@ public class Orders {
 
     public void setOrderDesc(String orderDesc) {
         this.orderDesc = orderDesc;
+    }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "id='" + id + '\'' +
+                ", orderNum='" + orderNum + '\'' +
+                ", orderTime=" + orderTime +
+                ", orderTimeStr='" + orderTimeStr + '\'' +
+                ", orderStatus=" + orderStatus +
+                ", orderStatusStr='" + orderStatusStr + '\'' +
+                ", peopleCount=" + peopleCount +
+                ", member=" + member +
+                ", product=" + product +
+                ", payType=" + payType +
+                ", payTypeStr='" + payTypeStr + '\'' +
+                ", orderDesc='" + orderDesc + '\'' +
+                '}';
     }
 }
