@@ -85,7 +85,7 @@
 				<li><a href="${pageContext.request.contextPath}/index.jsp"><i
 						class="fa fa-dashboard"></i> 首页</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/user/findAll.do">用户管理</a></li>
+					href="${pageContext.request.contextPath}/user/findAll">用户管理</a></li>
 
 				<li class="active">全部用户</li>
 			</ol>
@@ -143,13 +143,13 @@
 								</tr>
 
 								<tbody>
-									<c:forEach items="${user.roles}" var="role">
-										<tr data-tt-id="1" data-tt-parent-id="0">
+									<c:forEach items="${user.roles}" var="role" varStatus="vs">
+										<tr data-tt-id="${role.id}" data-tt-parent-id="0">
 											<td>${role.roleName }</td>
 											<td>${role.roleDesc }</td>
 										</tr>
 										<c:forEach items="${role.permissions}" var="permission">
-											<tr data-tt-id="1-1" data-tt-parent-id="1">
+											<tr data-tt-id="1-1" data-tt-parent-id="${role.id}">
 												<td>${permission.permissionName}</td>
 												<td>${permission.url}</td>
 											</tr>

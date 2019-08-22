@@ -2,8 +2,10 @@ package com.jt;
 
 import com.jt.domain.Orders;
 import com.jt.domain.Product;
+import com.jt.domain.UserInfo;
 import com.jt.service.OrdersService;
 import com.jt.service.ProductService;
+import com.jt.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class TourismNetworkApplicationTests {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private OrdersService ordersService;
     @Test
@@ -51,6 +55,12 @@ public class TourismNetworkApplicationTests {
         System.out.println(orders.getMember());
         System.out.println(orders.getTravellers());
         System.out.println(orders.getProduct());
+    }
+
+    @Test
+    public void testUserInfo(){
+        List<UserInfo> list = userService.findAll();
+        System.out.println(list.get(0).getRoles());
     }
 
 }

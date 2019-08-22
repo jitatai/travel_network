@@ -85,7 +85,7 @@
 				<li><a href="${pageContext.request.contextPath}/index.jsp"><i
 						class="fa fa-dashboard"></i> 首页</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/role/findAll.do">角色管理</a></li>
+					href="${pageContext.request.contextPath}/role/findAll">角色管理</a></li>
 
 				<li class="active">全部角色</li>
 			</ol>
@@ -108,7 +108,7 @@
 							<div class="pull-left">
 								<div class="form-group form-inline">
 									<div class="btn-group">
-										<button type="button" class="btn btn-default" title="新建" onclick="location.href='${pageContext.request.contextPath}/pages/role-add.jsp'">
+										<button type="button" class="btn btn-default" title="新建" onclick="location.href='${pageContext.request.contextPath}/role/toadd'">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
 										
@@ -151,7 +151,7 @@
 											<td>${role.roleDesc }</td>																				
 											<td class="text-center">
 												<a href="${pageContext.request.contextPath}/role/findById.do?id=${role.id}" class="btn bg-olive btn-xs">详情</a>
-												<a href="${pageContext.request.contextPath}/user/findUserByIdAndAllRole.do?id=${user.id}" class="btn bg-olive btn-xs">添加角色</a>
+												<a href="${pageContext.request.contextPath}/role/findRoleByIdAndAllPerssions?id=${role.id}" class="btn bg-olive btn-xs">添加权限</a>
 											</td>
 										</tr>
 									</c:forEach>
